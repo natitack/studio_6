@@ -1,3 +1,7 @@
+# Repository Context
+
+This repository is the code from an in-class activity to build a layout for a weather app.
+
 # studio_6_layout_challenge
 
 A new Flutter project.
