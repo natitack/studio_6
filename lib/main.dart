@@ -90,18 +90,18 @@ class WeatherLayout extends StatelessWidget {
     return Scaffold(
         body: SafeArea(
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-              child: Column(
-                    children: [
-                      Location(location: location),
-                      WeatherIcon(),
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                        child: Forecast(forecast: forecast),
-                      ),
-                    ],
-                  ),
-            )));
+      padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+      child: Column(
+        children: [
+          Location(location: location),
+          WeatherIcon(),
+          Padding(
+            padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+            child: Forecast(forecast: forecast),
+          ),
+        ],
+      ),
+    )));
   }
 }
 
@@ -112,7 +112,13 @@ class WeatherIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(width: 200, child: Placeholder(fallbackHeight: 200, fallbackWidth: 100, color: Colors.blueGrey,));
+    return SizedBox(
+        width: 200,
+        child: Placeholder(
+          fallbackHeight: 200,
+          fallbackWidth: 100,
+          color: Colors.blueGrey,
+        ));
   }
 }
 
@@ -126,9 +132,7 @@ class Location extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center, 
-      children: <Widget>[
+    return Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
       Text("${location["city"]!} ", style: textStyle()),
       Text("${location["state"]!}, ", style: textStyle()),
       Text("${location["zip"]!}", style: textStyle())
