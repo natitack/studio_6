@@ -4,8 +4,6 @@ void main() {
   runApp(const MyApp());
 }
 
-
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -41,7 +39,6 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
 
-
   final String title;
 
   @override
@@ -49,9 +46,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
-
-  Map<String,String> forecast = {
+  Map<String, String> forecast = {
     "name": "today",
     "temperature": "35",
     "shortForecast": "Snowy",
@@ -60,7 +55,6 @@ class _MyHomePageState extends State<MyHomePage> {
     "windDirection": "SE",
     "isDaytime": "true",
     "probabilityOfPercipitation": "100"
-
   };
 
   Map<String, String> location = {
@@ -77,6 +71,84 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-    return Text(location["city"]!);
+    return WeatherLayout(location: location, forecast: forecast);
   }
+}
+
+class WeatherLayout extends StatelessWidget {
+  const WeatherLayout({
+    super.key,
+    required this.location,
+    required this.forecast,
+  });
+
+  final Map<String, String> location;
+  final Map<String, String> forecast;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+              child: Column(
+                    children: [
+                      Location(location: location),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                        child: Forecast(forecast: forecast),
+                      ),
+                    ],
+                  ),
+            )));
+  }
+}
+
+class Location extends StatelessWidget {
+  const Location({
+    super.key,
+    required this.location,
+  });
+
+  final Map<String, String> location;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center, 
+      children: <Widget>[
+      Text("${location["city"]!} ", style: textStyle()),
+      Text("${location["state"]!} ", style: textStyle()),
+      Text("${location["zip"]!}", style: textStyle())
+    ]);
+  }
+
+  TextStyle textStyle() => TextStyle(fontSize: 30);
+}
+
+class Forecast extends StatelessWidget {
+  const Forecast({super.key, required this.forecast});
+  final Map<String, String> forecast;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text("Temperature: ${forecast['temperature']}", style: textStyle()),
+        Text("Short Forecast: ${forecast['shortForecast']}",
+            style: textStyle()),
+        Text("Detailed Forecast:  ${forecast['detailedForecast']}",
+            style: textStyle()),
+        Text("Wind Speed:   ${forecast['windSpeed']}", style: textStyle()),
+        Text("Wind Direction: ${forecast['windDirection']}",
+            style: textStyle()),
+        Text("Is Daytime: ${forecast['isDaytime']}", style: textStyle()),
+        Text(
+            "Probability of Percipitation: ${forecast['probabilityOfPercipitation']}",
+            style: textStyle()),
+      ],
+    );
+  }
+
+  TextStyle textStyle() => TextStyle(fontSize: 20);
 }
