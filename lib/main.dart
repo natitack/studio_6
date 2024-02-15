@@ -94,6 +94,7 @@ class WeatherLayout extends StatelessWidget {
               child: Column(
                     children: [
                       Location(location: location),
+                      WeatherIcon(),
                       Padding(
                         padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
                         child: Forecast(forecast: forecast),
@@ -101,6 +102,17 @@ class WeatherLayout extends StatelessWidget {
                     ],
                   ),
             )));
+  }
+}
+
+class WeatherIcon extends StatelessWidget {
+  const WeatherIcon({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(width: 200, child: Placeholder(fallbackHeight: 200, fallbackWidth: 100, color: Colors.blueGrey,));
   }
 }
 
@@ -118,7 +130,7 @@ class Location extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center, 
       children: <Widget>[
       Text("${location["city"]!} ", style: textStyle()),
-      Text("${location["state"]!} ", style: textStyle()),
+      Text("${location["state"]!}, ", style: textStyle()),
       Text("${location["zip"]!}", style: textStyle())
     ]);
   }
